@@ -8,11 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico">
     <link href="<?= base_url('node_modules/bootstrap/dist/css/bootstrap.min.css') ?>" rel="stylesheet">
-    <link href="<?= base_url('assets/style/common.min.css') ?>" rel="stylesheet">
-    
-    <link href="<?= base_url('assets/style/footer.min.css') ?>" rel="stylesheet">
-
     <link rel="stylesheet" href="<?= base_url('node_modules/boxicons/css/boxicons.min.css')?>" />
+    <link href="<?= base_url('assets/style/common.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/style/footer.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/style/media.min.css') ?>" rel="stylesheet">
 
 </head>
 

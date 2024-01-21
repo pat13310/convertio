@@ -459,25 +459,3 @@ label,
   width: 100%;
 }
 
-.drag-zone {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  line-height: 1.5rem;
-  align-items: center;
-  border: 1px dashed #ccc;
-  padding: 2rem 4rem;
-  height: 4rem;
-  color: #515050;
-  border-radius: 1rem;
-  background: transparent;
-  margin-bottom: 1rem;  
-  &.drag-active {
-    margin-bottom: 1rem;  
-    padding: 2rem 4rem;
-    height: 2rem;
-    border: $border-drop-active;
-  }
-  
-}

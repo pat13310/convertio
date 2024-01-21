@@ -32,7 +32,9 @@ De plus, assurez-vous que les extensions suivantes sont activées dans votre PHP
 ### Exécutez le script suivant si les extensions ne sont pas présentes par défaut:
 
 sudo apt-get update
+
 sudo apt-get install php8.2-gd
+
 sudo apt-get install php8.2-intl
 
 

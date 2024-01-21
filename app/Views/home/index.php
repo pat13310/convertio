@@ -1,55 +1,50 @@
 <?= $this->extend('base') ?>
 
 <body>
-  <?= $this->section('content') ?>
-  <section>
+<?= $this->section('content') ?>
+<section class="main-box">
 
-    <h1>About this page</h1>
+    <h1>Convertissez vos images au format désiré</h1>
+    <div class="drop-box">
+        <input type="file" id="inputfile" class="btn" id="upload"/>
+        <label class="mb-1" for="inputfile"><i class="bx bx-upload"></i>Sélectionner des images</label>
+        <div class="drag-zone"><i class='bx bx-plus-circle'></i><br>déposez vos images ici
+        </div>
+        <div id="image-root"></div>
+        <div class="start_box">
+            <button class="btn">Convertir</button>
+        </div>
+    </div>
+</section>
 
-    <p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+<div class="content-box">
 
-    <p>If you would like to edit this page you will find it located at:</p>
+    <section class="w-70 container  text-center ">
 
-    <pre><code>app/Views/welcome_message.php</code></pre>
-
-    <p>The corresponding controller for this page can be found at:</p>
-
-    <pre><code>app/Controllers/Home.php</code></pre>
-
-  </section>
-
-  <div class="further">
-
-    <section>
-
-      <h1>Go further</h1>
-
-      
-      <p>The User Guide contains an introduction, tutorial, a number of "how to"
-        guides, and then reference documentation for the components that make up
-        the framework. Check the <a href="https://codeigniter4.github.io/userguide" target="_blank">User Guide</a> !</p>
-
-      
-      <p>CodeIgniter is a community-developed open source project, with several
-        venues for the community members to gather and exchange ideas. View all
-        the threads on <a href="https://forum.codeigniter.com/" target="_blank">CodeIgniter's forum</a>, or <a href="https://join.slack.com/t/codeigniterchat/shared_invite/zt-rl30zw00-obL1Hr1q1ATvkzVkFp8S0Q" target="_blank">chat on Slack</a> !</p>
-
-      
-      <p>CodeIgniter is a community driven project and accepts contributions
-        of code and documentation from the community. Why not
-        <a href="https://codeigniter.com/contribute" target="_blank">
-          join us</a> ?
-      </p>
+        <h4>Facilité d'utilisation:</h4>
+        <p>la plateforme se distingue par sa facilité d'utilisation. Vous n'avez qu'à
+            télécharger votre fichier, choisir le format de sortie, et laisser l'outil convertir votre fichier
+            rapidement et efficacement.
+        </p>
+        <h4>Confidentialité garantie:</h4>
+        <p>avec Express Convert IO, vos fichiers sont en sécurité. Ils sont supprimés des serveurs peu après la
+            conversion, vous assurant que personne n'a accès à vos fichiers.
+        </p>
+        <h4>Accessibilité:</h4>
+        <p>En tant que plateforme en ligne, vous avez accès à Express Convert IO sur n'importe quel appareil, pourvu
+            qu'il ait une connexion internet. Peu importe si vous êtes sur votre ordinateur de bureau, votre tablette ou
+            votre smartphone, vos outils de conversion de fichiers sont toujours à portée de main.
+        </p>
 
     </section>
 
-  </div>
-  <?= $this->endSection() ?>
+</div>
+<?= $this->endSection() ?>
 
-  
-  <!-- SCRIPTS -->
-  <?= $this->section('js') ?>        
-  <script>
+
+<!-- SCRIPTS -->
+<?= $this->section('js') ?>
+<script src="<?= base_url('assets/js/convert.js') ?>">
     /* function toggleMenu() {
       var menuItems = document.getElementsByClassName('menu-item');
       for (var i = 0; i < menuItems.length; i++) {
@@ -57,9 +52,9 @@
         menuItem.classList.toggle("hidden");
       }
     } */
-  </script>
-  <?= $this->endSection() ?>
-  <!-- -->
+</script>
+<?= $this->endSection() ?>
+<!-- -->
 
 </body>
 

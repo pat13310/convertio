@@ -1,40 +1,32 @@
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+       <div class="logo-box"><div class="logo"></div></div>
+      <a class="navbar-brand" href="#">Express Convert IO</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor02">
-         <ul class="navbar-nav me-auto">
+         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-               <a class="nav-link active" href="#">Home
+               <a class="nav-link active" href="#">Accueil
                   <span class="visually-hidden">(current)</span>
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="#">Features</a>
+               <a class="nav-link" href="#">Convertir</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="#">Pricing</a>
+               <a class="nav-link" href="#">Améliorer</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="#">About</a>
+               <a class="nav-link" href="#">Supprimer fond</a>
             </li>
-            <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-               <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-               </div>
-            </li>
+
          </ul>
-         <form class="d-flex">
-            <input class="form-control me-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-         </form>
+<!--         <form class="d-flex">-->
+<!--            <input class="form-control me-sm-2" type="search" placeholder="Search">-->
+<!--            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>-->
+<!--         </form>-->
       </div>
    </div>
 </nav>
