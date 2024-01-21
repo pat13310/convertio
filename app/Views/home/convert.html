@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConvertExpress IO - Convertisseur des Formats Image</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,700" />
+  <link rel="stylesheet" href="node_modules/boxicons/css/boxicons.min.css" />
+  <link href="style/interface.min.css" rel="stylesheet" />
+  <link href="style/modal.min.css" rel="stylesheet" />
+  <link href="style/footer.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- The Modal -->
+  <div class="modal-content  hide">
+    <div id="myModal" class="modal-wrapper">
+      <!-- Modal content -->
+      <div class="modal">
+        <div class="modal-header">
+          <h3><i class='gear bx bx-cog'></i>Options avancées</h3> <button class="close-button" onclick="closeModal()"><i
+              class='bx bx-x-circle'></i></button>
+        </div>
+        <div class="modal-body">
+          <h4>Options d'images</h4>
+          <p>Contenu de la fenêtre modale</p>
+        </div>
+        <div class="modal-footer"> <button class="cancel-button" onclick="closeModal()">Réinitialiser</button>
+          <button class="confirm-button" onclick="confirm()">Appliquer</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="navbar">
+    <div class="logo-box">
+      <div class="logo"></div>
+      <h3>Convertisseur d'images</h3>
+    </div>
+    <div class="menu-box">
+
+      <a class="under" href="#">Convertir</a>
+      <a class="under" href="#">Améliorer </a>
+      <a class="under" href="#">Supprimer Fond</a>
+
+      <div class="btn-popup collapse"><i class="bx bx-menu"></i>
+        <div class="menu-popup collapse">
+          <a>Convertir</a>
+          <a>Améliorer</a>
+          <a>Supprimer Fond</a>
+        </div>
+      </div>
+
+      </ul>
+    </div>
+  </div>
+
+  <main class="main-box">
+    <h1>Convertissez vos images au format désiré</h1>
+    <div class="drop-box">
+      <input type="file" id="inputfile" class="btn" id="upload" />
+      <label class="mb-1" for="inputfile"><i class="bx bx-upload"></i>Sélectionner des images</label>
+      <div class="drag-zone"><i class='bx bx-plus-circle'></i><br>déposez vos images ici
+      </div>
+
+      <div id="image-root"></div>
+      <div class="start_box">
+        <button class="btn">Convertir</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="ml-1 d-flex justify-content-center">
+      <p>&copy; 2024 Express Convert IO. Tous droits réservés.</p>
+    </div>
+    <div class="social-icons">
+      <a href="#" class="bx bxl-facebook"></a>
+      <a href="#" class="bx bxl-github"></a>
+      <a href="#" class="bx bxl-twitter"></a>
+    </div>
+  </footer>
+  <script src="js/convert.js"></script>
+</body>
+
+</html>
