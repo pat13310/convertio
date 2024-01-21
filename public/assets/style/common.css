@@ -177,8 +177,7 @@ label:hover,
   background: #181818;
 }
 .main-box .drop-box .image-content img {
-  -o-object-position: center;
-     object-position: center;
+  object-position: center;
   height: 3rem;
   width: 6rem;
   -o-object-fit: contain;
@@ -353,8 +352,7 @@ label:hover,
   position: absolute;
   left: 0;
   display: grid;
-  -moz-column-gap: 0rem;
-       column-gap: 0rem;
+  column-gap: 0rem;
   row-gap: 0rem;
   grid-template-columns: repeat(2, 1fr);
   width: auto;
@@ -431,4 +429,6 @@ h1 {
 .text-copyright {
   color: whitesmoke;
   font-weight: 100;
-}/*# sourceMappingURL=common.css.map */
+}
+
+/*# sourceMappingURL=common.css.map */
