@@ -12,7 +12,7 @@
     <link href="<?= base_url('assets/style/common.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/style/footer.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/style/media.min.css') ?>" rel="stylesheet">
-
+    <?= $this->renderSection('head') ?>
 </head>
 
 <body>

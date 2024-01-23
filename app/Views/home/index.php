@@ -1,18 +1,21 @@
 <?= $this->extend('base') ?>
 
-<body>
+<?= $this->section('head') ?>
+
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 <section class="main-box">
-
+    <?= $this->include('partials/modal.php') ?>
     <h1>Convertissez vos images au format désiré</h1>
     <div class="drop-box">
-        <input type="file" id="inputfile" class="btn" id="upload"/>
+        <input type="file" id="inputfile" class="btn" id="upload" />
         <label class="mb-1" for="inputfile"><i class="bx bx-upload"></i>Sélectionner des images</label>
         <div class="drag-zone"><i class='bx bx-plus-circle'></i><br>déposez vos images ici
         </div>
         <div id="image-root"></div>
         <div class="start_box">
-            <button class="btn">Convertir</button>
+            <button class="btn">Convertir<i class='bx bx-right-arrow-alt' ></i></button>
         </div>
     </div>
 </section>
@@ -53,9 +56,20 @@
       }
     } */
 </script>
+<script>
+     var modal = new bootstrap.Modal(document.getElementById('settingsModal'));
+       
+    function onSettings(elem) {
+        modal.show();
+    }
+
+    function onConfirm(){
+        modal.hide();
+    }
+    /*  document.getElementById('openModalBtn').addEventListener('click', function () {
+      var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+      modal.show();
+    }); */
+</script>
 <?= $this->endSection() ?>
 <!-- -->
-
-</body>
-
-</html>
