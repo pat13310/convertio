@@ -7,7 +7,7 @@ const btn_settings = document.querySelector("#settings");
 const btn_delete = document.querySelector("#delete");
 
 // lot de fichiers pour la conversion
-let batch_files= [];
+let batch_files = [];
 
 function strUUID() {
    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -64,8 +64,13 @@ function addImage(file) {
    }
    // Créez un objet URL pour le fichier
    const imageURL = URL.createObjectURL(file);
-   let infos = { name: `${file_name}`, size: `${file_size}` };
-   batch_files.push(infos);
+   let countObj = strUUID();
+   let infos = {
+      name: `${file_name}`,
+      size: `${file_size}`,
+      id: `${countObj}`,
+   };
+   batch_files.push({ file: `${file}`, id: `${countObj}` });
    onAddImage(infos, imageURL);
 }
 
@@ -101,36 +106,35 @@ function selectFormat(select, popup) {
 }
 
 function onAddImage(infos, url) {
-   let countObj = strUUID();
    //let countObj = document.querySelectorAll(".image-wrapper").length + 1;
    let root = document.querySelector("#image-root");
    let imagewrapper = document.createElement("div");
    imagewrapper.classList = "image-wrapper d-flex";
    imagewrapper.innerHTML = `
-  <div class="image-content ">
-          <img src="${url}" id="img-${countObj}"></img>
-        </div>
-        <span class="ellipsis" id="img-infos">${infos.name}</span><span class="size">${infos.size}</span>
-        <div class="ml-2 progressbar-wrapper">
-          <div class="progressbar"><span>50%</span></div>
-        </div>
-        <span class="text-conv ml-1">Convertir en:</span>
-        <div class="select-format" aria-valueText="JPG" id="format-${countObj}">
-          <div>JPG</div><i class='bx bx-caret-down'></i>
-          <div class="popup-format collapse" id="popup-${countObj}">
+   <div class="image-content ">
+         <img src="${url}" id="img-${infos.id}"></img>
+      </div>
+      <span class="ellipsis" id="img-infos">${infos.name}</span><span class="size">${infos.size}</span>
+      <div class="ml-2 progressbar-wrapper">
+      <div class="progressbar" id="progress-${infos.id}"><span></span></div>
+      </div>
+      <span class="text-conv ml-1">Convertir en:</span>
+      <div class="select-format" aria-valueText="JPG" id="format-${infos.id}">
+         <div>JPG</div><i class='bx bx-caret-down'></i>
+         <div class="popup-format collapse" id="popup-${infos.id}">
             <a class="btn btn-format">JPG</a>
             <a class="btn btn-format">PNG</a>
             <a class="btn btn-format">BMP</a>
             <a class="btn btn-format ">TIFF</a>
-          </div>
-        </div>
-        <div id="settings" onclick="onSettings(this);" class="action"><i class='bx bx-cog'></i></div>
-        <div id="delete" onclick="onRemove(this);" class="action"><i class='bx bx-x'></i></div>
-  `;
+         </div>
+      </div>
+      <div id="settings" onclick="onSettings(this);" class="action"><i class='bx bx-cog'></i></div>
+      <div id="delete" onclick="onRemove(this);" class="action"><i class='bx bx-x'></i></div>
+`;
 
    root.appendChild(imagewrapper);
-   const select_format = document.querySelector(`#format-${countObj}`);
-   const popup_format = document.querySelector(`#popup-${countObj}`);
+   const select_format = document.querySelector(`#format-${infos.id}`);
+   const popup_format = document.querySelector(`#popup-${infos.id}`);
    selectFormat(select_format, popup_format);
 }
 
@@ -138,32 +142,50 @@ function onRemove(elem) {
    elem.parentElement.remove();
 }
 
+function actionFile(file, id = "", action = "upload") {
+   //var fileInput = document.getElementById('fileinnput');
+   var file = fileInput.files[0];
 
-function uploadFile(file, id='') {
-    //var fileInput = document.getElementById('fileInput');
-    //var file = fileInput.files[0];
+   if (file) {
+      var formData = new FormData();//document.getElementById("upload-form"));
+      formData.append("uploadfiles", file);
 
-    if (file) {
-        var formData = new FormData();
-        formData.append('uploadfiles', file);
+      var xhr = new XMLHttpRequest();
 
-        var xhr = new XMLHttpRequest();
-
-        xhr.upload.addEventListener("progress", function (evt) {
+      xhr.upload.addEventListener(
+         "progress",
+         function (evt) {
             if (evt.lengthComputable) {
-                var percentComplete = (evt.loaded / evt.total) * 100;
-                document.getElementById('progress-'+id).value = percentComplete;
+               var percentComplete = Math.round((evt.loaded / evt.total) * 100);
+               const progressbar = document.getElementById("progress-" + id);
+               progressbar.style.width = percentComplete + "%";
+               progressbar.children[0].innerText = percentComplete + "%";
             }
-        }, false);
+         },
+         false
+      );
 
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-                document.getElementById('message').innerHTML = response.message;
+      xhr.onreadystatechange = function () {
+         if (xhr.readyState == 4 && xhr.status == 200) {
+				var response = JSON.parse(xhr.responseText);
+            if (response.error) {
+               console.log(response.error);
+               //document.getElementById('upload_status').textContent = response.error;
+            } else if (response.success) {
+               console.log(response.success);
+               //document.getElementById('upload_status').textContent = response.success;
             }
-        };
+            //var response = JSON.parse(xhr.responseText);
+            //document.getElementById("message").innerHTML = response.message;
+         }
+      };
+      xhr.open("POST", action, true);
+      xhr.send(formData);
+   }
+}
 
-        xhr.open('POST', 'upload', true);
-        xhr.send(formData);
-    }
+function onConvert() {
+   batch_files.forEach((info) => {
+      actionFile(info.file, info.id);
+   });
 }

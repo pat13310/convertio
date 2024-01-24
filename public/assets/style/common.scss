@@ -263,7 +263,7 @@ label,
          background: #181818;
 
          img {
-            object-position: center;
+            object-position: left;
             height: 3rem;
             width: 5rem;
             -o-object-fit: contain;
@@ -284,7 +284,7 @@ label,
 
    .progressbar {
       display: flex;
-      width: 50%; /* Modifier cette valeur pour changer la progression */
+      width: 0%; /* Modifier cette valeur pour changer la progression */
       height: 100%;
       background: linear-gradient(to right, $blue1, $progress_emeraud);
 

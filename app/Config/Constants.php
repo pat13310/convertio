@@ -92,3 +92,8 @@ define('EVENT_PRIORITY_NORMAL', 100);
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_HIGH instead.
  */
 define('EVENT_PRIORITY_HIGH', 10);
+
+define('UPLOAD_DIR',"./uploads/images/cached");
+define('IMPROVE_DIR',"./uploads/images/improved");
+define('CONVERT_DIR',"./uploads/images/converted");
+define('BACKGROUND_DIR',"./uploads/images/background");
