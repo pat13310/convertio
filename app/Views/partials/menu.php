@@ -12,13 +12,13 @@
                   <span class="visually-hidden">(current)</span>
                </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" aria-label="Convertir">
                <a class="nav-link" href="#">Convertir</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" aria-label="Améliorer">
                <a class="nav-link" href="#">Améliorer</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" aria-label="Supprimer fond">
                <a class="nav-link" href="#">Supprimer fond</a>
             </li>
 

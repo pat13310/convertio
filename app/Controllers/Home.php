@@ -6,6 +6,9 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
+    public function infos(){
+        return phpinfo();
+    }
     public function index(): string
     {
         helper('me_helper');

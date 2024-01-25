@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700");
 @font-face {
   font-family: "Roboto" !important;
   src: url("/public/assets/Roboto-Regular.ttf") format("truetype");
@@ -281,7 +280,7 @@ label:hover,
   align-items: center;
   border: 1px dashed #ccc;
   height: 4rem;
-  color: #515050;
+  color: #A3A3A3;
   border-radius: 1rem;
   background: transparent;
   padding: 4rem;
@@ -438,7 +437,7 @@ h1 {
 .content-box {
   padding-bottom: 5rem;
 }
-.content-box h4 {
+.content-box h1 {
   font-size: calc(0.8rem + 0.9vw);
   font-weight: 300;
   color: #bababa;

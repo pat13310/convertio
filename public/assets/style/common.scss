@@ -9,7 +9,7 @@ $navbar-brand-padding-x: 0;
 
 // Personnalisation des styles
 // Importer la police Roboto avec plusieurs poids
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700");
+//@import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700");
 
 @font-face {
    font-family: "Roboto" !important;
@@ -362,7 +362,7 @@ label,
    align-items: center;
    border: 1px dashed #ccc;
    height: 4rem;
-   color: #515050;
+   color: #A3A3A3;
    border-radius: 1rem;
    background: transparent;
    padding: 4rem;
@@ -539,7 +539,7 @@ h1 {
 
 .content-box {
    padding-bottom: 5rem;
-   h4 {
+   h1 {
       font-size: calc(0.8rem + 0.9vw);
       font-weight: 300;
       color: #bababa;

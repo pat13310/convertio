@@ -116,16 +116,16 @@ function onAddImage(infos, url) {
       </div>
       <span class="ellipsis" id="img-infos">${infos.name}</span><span class="size">${infos.size}</span>
       <div class="ml-2 progressbar-wrapper">
-      <div class="progressbar" id="progress-${infos.id}"><span></span></div>
+      <div class="progressbar" id="progress-${infos.id}" aria-labelledby="progress-${infos.id}"><span></span></div>
       </div>
       <span class="text-conv ml-1">Convertir en:</span>
       <div class="select-format" aria-valueText="JPG" id="format-${infos.id}">
          <div>JPG</div><i class='bx bx-caret-down'></i>
          <div class="popup-format collapse" id="popup-${infos.id}">
-            <a class="btn btn-format">JPG</a>
-            <a class="btn btn-format">PNG</a>
-            <a class="btn btn-format">BMP</a>
-            <a class="btn btn-format ">TIFF</a>
+            <a class="btn btn-format" arial-label="format JPG">JPG</a>
+            <a class="btn btn-format arial-label="format PNG">PNG</a>
+            <a class="btn btn-format arial-label="format BMP">BMP</a>
+            <a class="btn btn-format" arial-label="format TIFF">TIFF</a>
          </div>
       </div>
       <div id="settings" onclick="onSettings(this);" class="action"><i class='bx bx-cog'></i></div>
@@ -142,12 +142,12 @@ function onRemove(elem) {
    elem.parentElement.remove();
 }
 
-function actionFile(file, id = "", action = "upload") {
+function actionFile(file, id = "", action = "action") {
    //var fileInput = document.getElementById('fileinnput');
    var file = fileInput.files[0];
 
    if (file) {
-      var formData = new FormData();//document.getElementById("upload-form"));
+      var formData = new FormData(); //document.getElementById("upload-form"));
       formData.append("uploadfiles", file);
 
       var xhr = new XMLHttpRequest();
@@ -166,17 +166,23 @@ function actionFile(file, id = "", action = "upload") {
       );
 
       xhr.onreadystatechange = function () {
-         if (xhr.readyState == 4 && xhr.status == 200) {
-				var response = JSON.parse(xhr.responseText);
-            if (response.error) {
-               console.log(response.error);
-               //document.getElementById('upload_status').textContent = response.error;
-            } else if (response.success) {
-               console.log(response.success);
-               //document.getElementById('upload_status').textContent = response.success;
+         if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+               var response = JSON.parse(xhr.responseText);
+               if (response.error) {
+                  console.log(response.error);
+                  //document.getElementById('upload_status').textContent = response.error;
+               } else if (response.success) {
+                  console.log(response.success);
+                  //document.getElementById('upload_status').textContent = response.success;
+               }
+            }
+            else{
+               console.error('Erreur de requête. Statut:', xhr.status, 'Texte:', xhr.statusText);
             }
             //var response = JSON.parse(xhr.responseText);
             //document.getElementById("message").innerHTML = response.message;
+         } else {
          }
       };
       xhr.open("POST", action, true);
