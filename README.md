@@ -2,7 +2,7 @@
 
 ## Qu'est-ce que Express Convert IO?
 
-Express Convert IO est un service web qui offre des fonctionnalités de conversion de formats graphiques. Ce service est capable de convertir des images, des graphiques et d'autres éléments visuels entre un large éventail de formats. Il prend en charge une variété de formats d'entrée et de sortie, y compris les plus populaire comme JPG, PNG, SVG et beaucoup d'autres. Le service est facile à utiliser, rapide et efficace, rendant les conversions de formats graphiques simples et sans tracas. De plus, il est largement accessible, avec une interface utilisateur intuitive et des options de conversion flexibles pour s'adapter à divers besoins et préférences.
+Express Convert IO est un service web qui offre des fonctionnalités de conversion de formats graphiques. Ce service est capable de convertir des images, des graphiques et d'autres éléments visuels entre un large éventail de formats. Il prend en charge une variété de formats d'entrée et de sortie, y compris les plus populaires comme JPG, PNG, SVG et beaucoup d'autres. Le service est facile à utiliser, rapide et efficace, rendant les conversions de formats graphiques simples et sans tracas. De plus, il est largement accessible, avec une interface utilisateur intuitive et des options de conversion flexibles pour s'adapter à divers besoins et préférences.
 
 ![image](https://github.com/pat13310/convertio/assets/122201455/1ba25e99-2ae6-4e43-87f4-db2d8b65c4ff)
 
