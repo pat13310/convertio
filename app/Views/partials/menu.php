@@ -13,7 +13,10 @@
                </a>
             </li>
             <li class="nav-item" aria-label="Convertir">
-               <a class="nav-link" href="#">Convertir</a>
+               <a class="nav-link" href="<?= base_url('/') ?>">Convertir</a>
+            </li>
+            <li class="nav-item" aria-label="Redimensionner">
+               <a class="nav-link" href="<?= base_url('/scale') ?>">Redimensionner</a>
             </li>
             <li class="nav-item" aria-label="Améliorer">
                <a class="nav-link" href="#">Améliorer</a>

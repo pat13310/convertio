@@ -42,10 +42,6 @@ label i,
 .btn i {
   margin-right: 1rem;
 }
-label:hover,
-.btn:hover {
-  color: #fff;
-}
 
 .navbar {
   width: 100%;
@@ -99,18 +95,8 @@ label:hover,
   align-items: center;
   list-style: none;
 }
-.navbar .menu-box a:hover {
-  color: #ffffff;
-  cursor: pointer;
-}
 .navbar .menu-box a i {
   font-size: 2rem;
-}
-.navbar .menu-box a .under:hover {
-  border-bottom: 2px solid #00a0e9;
-  padding-bottom: 0.3rem;
-  color: #ffffff;
-  cursor: pointer;
 }
 .navbar .menu-box a li {
   display: inline;
@@ -211,10 +197,6 @@ label:hover,
   margin-right: 1rem;
   font-size: 2rem;
 }
-.btn-popup:hover {
-  color: #ffffff;
-  cursor: pointer;
-}
 
 .menu-popup {
   position: absolute;
@@ -229,12 +211,6 @@ label:hover,
   font-size: calc(0.5rem + 0.5vw);
   color: #b1b1b1;
   transition: 0.2s ease-in-out;
-  padding: 0.1rem 2rem !important;
-  margin: 0.1rem 0;
-}
-.menu-popup a:hover {
-  color: black !important;
-  background: #fff;
   padding: 0.1rem 2rem !important;
   margin: 0.1rem 0;
 }
@@ -293,12 +269,6 @@ label:hover,
 .convert-wrapper .convert-box .btn {
   border: 1px solid transparent;
 }
-.convert-wrapper .convert-box .btn:hover {
-  border: 1px solid #00e9e1;
-}
-.convert-wrapper .convert-box .btn .active {
-  border: 1px solid #00a0e9;
-}
 
 .start_box {
   position: relative;
@@ -309,15 +279,11 @@ label:hover,
   background: #181818;
   border-radius: inherit;
 }
-.start_box .btn:hover {
-  border: 1px solid #00a0e9;
-}
 
 .select-format {
   position: relative;
   margin: 0 1rem;
   display: flex;
-  border: 1px solid #595858;
   border-radius: 0.25rem;
   height: 30%;
   font-size: calc(0.4rem + 0.4vw);
@@ -327,26 +293,10 @@ label:hover,
   padding: 0.2rem 2rem;
   margin-left: 0rem;
 }
+
 .select-format i {
   position: absolute;
   right: 0.4rem;
-}
-.select-format:hover {
-  color: white;
-  border: 1px solid #646464;
-  cursor: pointer;
-}
-
-.action {
-  margin-left: 0.5rem;
-  transition: 1s ease-in-out;
-}
-.action:hover {
-  color: white;
-  cursor: pointer;
-}
-.action i {
-  font-size: calc(1rem + 0.85vw);
 }
 
 .popup-format {
@@ -371,13 +321,6 @@ label:hover,
   color: #b1b1b1;
   list-style: none;
   border: 1px solid rgba(168, 160, 160, 0.7294117647);
-}
-.popup-format a:hover {
-  color: whitesmoke;
-  border: 1px solid #00a0e9;
-}
-.popup-format .grid {
-  height: auto;
 }
 
 .btn-format {

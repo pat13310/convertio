@@ -2,3 +2,11 @@ RewriteEngine On
 RewriteBase /
 RewriteRule (.*) public/$1 [L]
 
+# Ensure GD is loaded
+php_extension gd
+
+# Enable PHP extensions
+<IfModule mod_php.c>
+    php_value extension_dir "C:/xampp/php/ext"
+    php_value extension "gd"
+</IfModule>

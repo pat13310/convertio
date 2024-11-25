@@ -9,12 +9,14 @@ $navbar-brand-padding-x: 0;
 
 // Personnalisation des styles
 // Importer la police Roboto avec plusieurs poids
-//@import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700");
 
 @font-face {
-   font-family: "Roboto" !important;
-   src: url("/public/assets/Roboto-Regular.ttf") format("truetype");
-   font-weight: 100 !important;
+   font-display: swap;
+   font-family: "Roboto";
+   src: url("/assets/Roboto-Regular.ttf") format("truetype"),
+      url("/assets/Roboto-Regular.woff2") format("woff2"),
+      url("/assets/Roboto-Regular.woff") format("woff");
+   font-weight: 100;
    font-style: normal;
 }
 
@@ -66,14 +68,18 @@ body {
    border-radius: 10px;
    //background-color: #787878;
    //background: linear-gradient(90deg, #4f4f4f, #787878, #4f4f4f);
-   background: linear-gradient(90deg,#4f4f4f,#5f5f5f 30%, #5f5f5f 70%, #4f4f4f);
-
-
+   background: linear-gradient(
+      90deg,
+      #4f4f4f,
+      #5f5f5f 30%,
+      #5f5f5f 70%,
+      #4f4f4f
+   );
 }
 
 *::-webkit-scrollbar {
    width: 12px;
-   background: linear-gradient(90deg,#787878, #4f4f4f, #787878);
+   background: linear-gradient(90deg, #787878, #4f4f4f, #787878);
 }
 
 *::-webkit-scrollbar-thumb {
@@ -362,7 +368,7 @@ label,
    align-items: center;
    border: 1px dashed #ccc;
    height: 4rem;
-   color: #A3A3A3;
+   color: #a3a3a3;
    border-radius: 1rem;
    background: transparent;
    padding: 4rem;
@@ -396,13 +402,11 @@ label,
          border: 1px solid $blue1;
       }
 
-      i{
+      i {
          margin-right: 0;
          margin-left: 0.5rem;
       }
    }
-
-   
 }
 
 .ellipsis {
@@ -461,7 +465,7 @@ label,
       font-size: calc(1rem + 0.85vw);
    }
 
-   &#delete{
+   &#delete {
       font-size: calc(1.2rem + 1.5vw);
    }
 }
@@ -654,5 +658,3 @@ h1 {
    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
    margin-left: 10px;
 }
-
-

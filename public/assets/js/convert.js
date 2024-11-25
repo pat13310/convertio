@@ -1,197 +1,371 @@
 // Drop box
-const drag_zone = document.querySelector(".drag-zone");
+const dragZone = document.querySelector(".drag-zone");
 const fileInput = document.getElementById("inputfile");
-
-// boutons actions
-const btn_settings = document.querySelector("#settings");
-const btn_delete = document.querySelector("#delete");
+const root = document.querySelector("#root");
 
 // lot de fichiers pour la conversion
 let batch_files = [];
+// Stocker les URLs des objets pour le nettoyage
+let objectUrls = [];
 
-function strUUID() {
-   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-      var r = (Math.random() * 16) | 0,
-         v = c == "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-   });
-}
-
-drag_zone.addEventListener(
-   "dragover",
-   (e) => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = "copy";
-   },
-   true
-);
-
-drag_zone.addEventListener("dragenter", () => {
-   drag_zone.classList = "drag-zone drag-active";
+// Gestion du drag & drop
+dragZone.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    dragZone.classList.add('dragover');
 });
 
-drag_zone.addEventListener("dragleave", () => {
-   drag_zone.classList = "drag-zone";
+dragZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dragZone.classList.add('dragover');
 });
 
-drag_zone.addEventListener("drop", (e) => {
-   e.preventDefault();
-   drag_zone.classList = "drag-zone";
-
-   //console.log(e.dataTransfer.files);
-   const files = [...e.dataTransfer.files];
-   if (files.length > 0) {
-      files.forEach((file) => {
-         addImage(file);
-      });
-   }
+dragZone.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dragZone.classList.remove('dragover');
 });
 
-inputfile.addEventListener("change", function () {
-   // Vérifiez s'il y a un fichier sélectionné
-   const file = inputfile.files[0];
-   addImage(file);
+dragZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dragZone.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        Array.from(files).forEach(file => addImageCard(file));
+    }
 });
 
-function addImage(file) {
-   let file_name = file.name;
-   let file_size = Math.round(file.size / 1024);
+// Gestion de la sélection de fichier
+fileInput.addEventListener("change", function() {
+    const files = [...fileInput.files];
+    files.forEach(file => addImageCard(file));
+});
 
-   if (file_size < 1024) {
-      file_size = file_size + "Ko";
-   } else {
-      file_size = Math.round(file_size / 1024) + "Mo";
-   }
-   // Créez un objet URL pour le fichier
-   const imageURL = URL.createObjectURL(file);
-   let countObj = strUUID();
-   let infos = {
-      name: `${file_name}`,
-      size: `${file_size}`,
-      id: `${countObj}`,
-   };
-   batch_files.push({ file: `${file}`, id: `${countObj}` });
-   onAddImage(infos, imageURL);
+// Formatage de la taille du fichier
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-function selectFormat(select, popup) {
-   if (select == null) return;
-
-   select.addEventListener("mouseover", () => {
-      popup.classList = "popup-format";
-      popup.style.top = -popup.clientHeight + "px";
-      popup.style.left =
-         select.clientLeft -
-         popup.clientWidth / 2 +
-         select.clientWidth / 2 +
-         "px";
-      select.children[1].classList = "bx bx-caret-up";
-
-      select.addEventListener("mouseleave", () => {
-         popup.classList = "popup-format collapse";
-         select.children[1].classList = "bx bx-caret-down";
-      });
-   });
-
-   const btnButtonsFormat = [...popup.children];
-
-   btnButtonsFormat.forEach((el) => {
-      el.addEventListener("click", () => {
-         select.ariaValueText = el.textContent;
-         select.children[0].innerText = el.textContent;
-         popup.classList = "popup-format collapse";
-         select.children[1].classList = "bx bx-caret-down";
-      });
-   });
+// Nettoyage des ressources
+function cleanupResources() {
+    // Révoquer toutes les URLs d'objets
+    objectUrls.forEach(url => URL.revokeObjectURL(url));
+    objectUrls = [];
+    // Vider la liste des fichiers
+    batch_files = [];
+    // Réinitialiser l'input file
+    fileInput.value = '';
 }
 
-function onAddImage(infos, url) {
-   //let countObj = document.querySelectorAll(".image-wrapper").length + 1;
-   let root = document.querySelector("#image-root");
-   let imagewrapper = document.createElement("div");
-   imagewrapper.classList = "image-wrapper d-flex";
-   imagewrapper.innerHTML = `
-   <div class="image-content ">
-         <img src="${url}" id="img-${infos.id}"></img>
-      </div>
-      <span class="ellipsis" id="img-infos">${infos.name}</span><span class="size">${infos.size}</span>
-      <div class="ml-2 progressbar-wrapper">
-      <div class="progressbar" id="progress-${infos.id}" aria-labelledby="progress-${infos.id}"><span></span></div>
-      </div>
-      <span class="text-conv ml-1">Convertir en:</span>
-      <div class="select-format" aria-valueText="JPG" id="format-${infos.id}">
-         <div>JPG</div><i class='bx bx-caret-down'></i>
-         <div class="popup-format collapse" id="popup-${infos.id}">
-            <a class="btn btn-format" arial-label="format JPG">JPG</a>
-            <a class="btn btn-format arial-label="format PNG">PNG</a>
-            <a class="btn btn-format arial-label="format BMP">BMP</a>
-            <a class="btn btn-format" arial-label="format TIFF">TIFF</a>
-         </div>
-      </div>
-      <div id="settings" onclick="onSettings(this);" class="action"><i class='bx bx-cog'></i></div>
-      <div id="delete" onclick="onRemove(this);" class="action"><i class='bx bx-x'></i></div>
-`;
+// Ajout d'une image à la liste
+function addImageCard(file) {
+    const imageURL = URL.createObjectURL(file);
+    objectUrls.push(imageURL); // Stocker l'URL pour le nettoyage ultérieur
+    const fileSize = formatFileSize(file.size);
+    
+    const imagewrapper = document.createElement('div');
+    imagewrapper.className = 'image-wrapper';
+    imagewrapper.dataset.index = batch_files.length;
+    
+    // Tronquer le nom du fichier si nécessaire
+    const displayName = file.name.length > 20 ? file.name.substring(0, 20) + '...' : file.name;
+    
+    // Déterminer le format par défaut basé sur l'extension du fichier
+    const extension = file.name.split('.').pop().toLowerCase();
+    const defaultFormat = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(extension) ? extension : 'jpg';
+    
+    imagewrapper.innerHTML = `
+        <div class="image-content">
+            <img src="${imageURL}" alt="${file.name}" onerror="this.src='assets/img/error.svg';">
+            <button class="remove-btn" onclick="onRemove(this)" title="Supprimer">
+                <i class='bx bx-trash'></i>
+            </button>
+        </div>
+        <div class="file-info">
+            <p class="file-name" title="${file.name}">${displayName}</p>
+            <span class="file-size">${fileSize}</span>
+        </div>
+        <div class="format-select">
+            <select class="form-select" name="format" onchange="onFormatChange(this, ${batch_files.length})">
+                <option value="jpg" ${defaultFormat === 'jpg' || defaultFormat === 'jpeg' ? 'selected' : ''}>JPG</option>
+                <option value="png" ${defaultFormat === 'png' ? 'selected' : ''}>PNG</option>
+                <option value="gif" ${defaultFormat === 'gif' ? 'selected' : ''}>GIF</option>
+                <option value="webp" ${defaultFormat === 'webp' ? 'selected' : ''}>WEBP</option>
+                <option value="bmp" ${defaultFormat === 'bmp' ? 'selected' : ''}>BMP</option>
+            </select>
+        </div>
+        <div class="progress-container">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 0%" 
+                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="progress-text">0%</div>
+        </div>
+        <div class="download-link">
+            <a href="#" class="btn btn-success btn-sm disabled" download title="Télécharger">
+                <i class='bx bx-download'></i>
+            </a>
+        </div>
+    `;
 
-   root.appendChild(imagewrapper);
-   const select_format = document.querySelector(`#format-${infos.id}`);
-   const popup_format = document.querySelector(`#popup-${infos.id}`);
-   selectFormat(select_format, popup_format);
+    root.appendChild(imagewrapper);
+    batch_files.push(file);
 }
 
-function onRemove(elem) {
-   elem.parentElement.remove();
+// Suppression d'un fichier
+function onRemove(button) {
+    const wrapper = button.closest('.image-wrapper');
+    const index = parseInt(wrapper.dataset.index);
+    
+    // Supprimer l'URL de l'objet correspondant
+    if (objectUrls[index]) {
+        URL.revokeObjectURL(objectUrls[index]);
+        objectUrls.splice(index, 1);
+    }
+    
+    batch_files.splice(index, 1);
+    wrapper.remove();
+    
+    // Mettre à jour les index des wrappers restants
+    document.querySelectorAll('.image-wrapper').forEach((wrap, idx) => {
+        wrap.dataset.index = idx;
+    });
 }
 
-function actionFile(file, id = "", action = "action") {
-   //var fileInput = document.getElementById('fileinnput');
-   var file = fileInput.files[0];
+// Conversion d'un seul fichier
+async function convertSingleFile(file, format, index) {
+    const formData = new FormData();
+    formData.append('uploadfile', file);
+    formData.append('format', format);
+    formData.append('index', index);
 
-   if (file) {
-      var formData = new FormData(); //document.getElementById("upload-form"));
-      formData.append("uploadfiles", file);
+    let progressInterval = null;
 
-      var xhr = new XMLHttpRequest();
-
-      xhr.upload.addEventListener(
-         "progress",
-         function (evt) {
-            if (evt.lengthComputable) {
-               var percentComplete = Math.round((evt.loaded / evt.total) * 100);
-               const progressbar = document.getElementById("progress-" + id);
-               progressbar.style.width = percentComplete + "%";
-               progressbar.children[0].innerText = percentComplete + "%";
+    try {
+        // Démarrer le suivi de la progression
+        progressInterval = setInterval(async () => {
+            try {
+                const progressResponse = await fetch(`${baseUrl}/convert/progress/${index}`);
+                const data = await progressResponse.json();
+                if (data && typeof data.progress !== 'undefined') {
+                    updateProgressBar(index, Math.min(99, data.progress)); // Max 99% jusqu'à la fin
+                }
+            } catch (error) {
+                console.error('Error fetching progress:', error);
             }
-         },
-         false
-      );
+        }, 500);
 
-      xhr.onreadystatechange = function () {
-         if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-               var response = JSON.parse(xhr.responseText);
-               if (response.error) {
-                  console.log(response.error);
-                  //document.getElementById('upload_status').textContent = response.error;
-               } else if (response.success) {
-                  console.log(response.success);
-                  //document.getElementById('upload_status').textContent = response.success;
-               }
+        // Démarrer la conversion
+        const response = await fetch(`${baseUrl}/convert-action`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
             }
-            else{
-               console.error('Erreur de requête. Statut:', xhr.status, 'Texte:', xhr.statusText);
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        
+        // Nettoyer l'intervalle une fois la conversion terminée
+        if (progressInterval) {
+            clearInterval(progressInterval);
+        }
+
+        if (result.success) {
+            updateProgressBar(index, 100); // 100% une fois terminé
+            if (result.download_url) {
+                updateDownloadLink(index, result.download_url, result.filename);
             }
-            //var response = JSON.parse(xhr.responseText);
-            //document.getElementById("message").innerHTML = response.message;
-         } else {
-         }
-      };
-      xhr.open("POST", action, true);
-      xhr.send(formData);
-   }
+            return true;
+        } else {
+            showError(index, result.message || 'Erreur de conversion');
+            return false;
+        }
+    } catch (error) {
+        // Nettoyer l'intervalle en cas d'erreur
+        if (progressInterval) {
+            clearInterval(progressInterval);
+        }
+        showError(index, 'Erreur lors de la conversion');
+        console.error('Error:', error);
+        return false;
+    }
 }
 
-function onConvert() {
-   batch_files.forEach((info) => {
-      actionFile(info.file, info.id);
-   });
+function updateProgressBar(index, progress) {
+    const wrapper = document.querySelector(`.image-wrapper[data-index="${index}"]`);
+    if (wrapper) {
+        const progressContainer = wrapper.querySelector('.progress-container');
+        const progressBar = progressContainer.querySelector('.progress-bar');
+        const progressText = progressContainer.querySelector('.progress-text');
+        
+        // S'assurer que la progression est un nombre entre 0 et 100
+        progress = Math.max(0, Math.min(100, parseInt(progress)));
+        
+        if (progressBar && progressText) {
+            progressBar.style.width = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressText.textContent = progress + '%';
+            
+            // Si la conversion est terminée (100%), garder ces valeurs
+            if (progress === 100) {
+                progressBar.style.width = '100%';
+                progressBar.setAttribute('aria-valuenow', '100');
+                progressText.textContent = '100%';
+            }
+        }
+    }
+}
+
+// Mise à jour de la progression
+function updateProgress(index, progress) {
+    const wrapper = document.querySelector(`.image-wrapper[data-index="${index}"]`);
+    if (wrapper) {
+        const progressBar = wrapper.querySelector('.progress-bar');
+        const progressText = wrapper.querySelector('.progress-text');
+        
+        // S'assurer que la progression est un nombre entre 0 et 100
+        progress = Math.max(0, Math.min(100, parseInt(progress)));
+        
+        // Mettre à jour la barre de progression
+        progressBar.style.width = `${progress}%`;
+        progressBar.setAttribute('aria-valuenow', progress);
+        
+        // Mettre à jour le texte de progression
+        progressText.textContent = `${progress}%`;
+        
+        // Ajouter une classe pour l'animation si en cours
+        if (progress > 0 && progress < 100) {
+            progressBar.classList.add('progressing');
+        } else {
+            progressBar.classList.remove('progressing');
+        }
+    }
+}
+
+// Afficher une erreur sur une carte
+function showError(index, message) {
+    const wrapper = document.querySelector(`.image-wrapper[data-index="${index}"]`);
+    if (wrapper) {
+        const progressContainer = wrapper.querySelector('.progress-container');
+        const progressBar = progressContainer.querySelector('.progress-bar');
+        const progressText = progressContainer.querySelector('.progress-text');
+        progressBar.style.backgroundColor = '#dc3545';
+        progressText.textContent = message;
+        progressText.style.color = '#dc3545';
+    }
+}
+
+// Mise à jour du lien de téléchargement
+function updateDownloadLink(index, downloadUrl, filename) {
+    const wrapper = document.querySelector(`.image-wrapper[data-index="${index}"]`);
+    if (wrapper) {
+        const downloadLinkDiv = wrapper.querySelector('.download-link');
+        const downloadLink = downloadLinkDiv.querySelector('a');
+        if (downloadLink) {
+            downloadLink.href = downloadUrl;
+            downloadLink.setAttribute('download', filename);
+            downloadLink.classList.remove('disabled');
+        }
+    }
+}
+
+// Conversion des fichiers
+async function convertFiles(event) {
+    event.preventDefault();
+    
+    if (batch_files.length === 0) {
+        showCustomAlert('Veuillez sélectionner au moins un fichier', 'error');
+        return;
+    }
+
+    const submitBtn = document.querySelector('#upload-form button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+    }
+
+    try {
+        const results = await Promise.all(batch_files.map(async (file, index) => {
+            const wrapper = document.querySelector(`.image-wrapper[data-index="${index}"]`);
+            const formatSelect = wrapper.querySelector('select[name="format"]');
+            const format = formatSelect ? formatSelect.value : 'jpg';
+            
+            return await convertSingleFile(file, format, index);
+        }));
+
+        const successCount = results.filter(result => result === true).length;
+        const errorCount = results.filter(result => result === false).length;
+
+        let message = '';
+        if (successCount > 0) {
+            message += `${successCount} fichier(s) converti(s) avec succès. `;
+        }
+        if (errorCount > 0) {
+            message += `${errorCount} erreur(s) de conversion.`;
+        }
+
+        showCustomAlert(message, errorCount === 0 ? 'success' : 'warning');
+    } catch (error) {
+        console.error('Error:', error);
+        showCustomAlert('Erreur lors de la conversion des fichiers', 'error');
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+        }
+    }
+}
+
+// Événement de changement de format
+function onFormatChange(select, index) {
+    const wrapper = select.closest('.image-wrapper');
+    const downloadLink = wrapper.querySelector('.download-link a');
+    const progressContainer = wrapper.querySelector('.progress-container');
+    const progressBar = progressContainer.querySelector('.progress-bar');
+    const progressText = progressContainer.querySelector('.progress-text');
+    
+    // Réinitialiser l'interface
+    downloadLink.classList.add('disabled');
+    downloadLink.href = '#';
+    progressBar.style.width = '0%';
+    progressBar.style.backgroundColor = '#0dcaf0';
+    progressText.textContent = '0%';
+    progressText.style.color = '';
+}
+
+// Événement de conversion
+document.getElementById('upload-form').addEventListener('submit', convertFiles);
+
+// Fonction pour afficher l'alerte personnalisée
+function showCustomAlert(message, type = 'success') {
+    const alertBox = document.getElementById('custom-alert');
+    const alertMessage = alertBox.querySelector('.alert-message');
+    const icon = alertBox.querySelector('i');
+    
+    alertBox.className = `custom-alert ${type}`;
+    alertMessage.textContent = message;
+    icon.className = type === 'success' ? 'bx bx-check-circle' : 'bx bx-x-circle';
+    
+    alertBox.classList.add('show');
+    
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+    }, 3000);
+}
+
+function checkProgress(index) {
+    fetch(`${baseUrl}/convert/progress/${index}`)
+        .then(response => response.json())
+        .then(data => {
+            updateProgressBar(index, data.progress);
+            if (data.progress < 100) {
+                setTimeout(() => checkProgress(index), 1000);
+            }
+        })
+        .catch(error => console.error('Error checking progress:', error));
 }

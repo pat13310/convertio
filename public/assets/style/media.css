@@ -25,11 +25,6 @@
     position: absolute;
     right: 0.25rem;
   }
-  .select-format:hover {
-    color: white;
-    border: 1px solid #646464;
-    cursor: pointer;
-  }
   .image-content {
     display: flex;
     justify-content: center;
@@ -142,11 +137,11 @@
     width: 0;
     color: transparent;
   }
+  /* Supprimer les styles en double pour .select-format car ils sont maintenant dans style.css */
   .select-format {
     position: relative;
     margin: 0;
     display: flex;
-    border: 1px solid #595858;
     border-radius: 0.25rem;
     height: 30%;
     font-size: calc(0.4rem + 0.4vw);
@@ -161,18 +156,9 @@
     position: absolute;
     right: 0.4rem;
   }
-  .select-format:hover {
-    color: white;
-    border: 1px solid #646464;
-    cursor: pointer;
-  }
   .action {
     margin: 0 0.1rem;
     transition: 1s ease-in-out;
-  }
-  .action:hover {
-    color: white;
-    cursor: pointer;
   }
   .action i {
     font-size: calc(0.9rem + 0.8vw);

@@ -365,7 +365,6 @@ label,
   position: relative;
   margin: 0 1rem;
   display: flex;
-  border: 1px solid #595858;
   border-radius: 0.25rem;
   height: 30%;
   font-size: calc(0.4rem + 0.4vw);
@@ -374,14 +373,31 @@ label,
   align-items: center;
   padding: 0.2rem 2rem;
   margin-left: 0rem;
+
   i {
     position: absolute;
     right: 0.4rem;
   }
-  &:hover {
-    color: white;
-    border: 1px solid #646464;
-    cursor: pointer;
+}
+
+.popup-format {
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  display: grid;
+  gap: 0.2rem;
+  width: auto;
+  border-radius: 0.2rem;
+  background: #202020;
+  border: 1px solid #515050;
+  color: #b1b1b1;
+  padding: 0.2rem 0.5rem;
+
+  a {
+    width: 3.5rem;
+    color: #b1b1b1;
+    list-style: none;
+    border: 1px solid #a8a0a0ba;
   }
 }
 
@@ -458,4 +474,3 @@ label,
 .image-root {
   width: 100%;
 }
-

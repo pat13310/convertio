@@ -13,6 +13,7 @@
     <link href="<?= base_url('assets/style/common.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/style/footer.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/style/media.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet">
     <?= $this->renderSection('head') ?>
 </head>
 
@@ -20,11 +21,8 @@
     <?= $this->include('partials/menu') ?>
     <?= $this->renderSection('content') ?>
     <?= $this->include('partials/footer') ?>
-    <script src="<?= base_url('node_modules/bootstrap/dist/js/bootstrap.min.js') ?>">
-
-    </script>
+    <script src="<?= base_url('node_modules/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
     <?= $this->renderSection('js') ?>
-
 </body>
 
 </html>

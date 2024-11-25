@@ -44,6 +44,16 @@ defined('DECADE') || define('DECADE', 315_360_000);
 
 /*
  | --------------------------------------------------------------------------
+ | Application Constants
+ | --------------------------------------------------------------------------
+ */
+defined('UPLOAD_DIR')      || define('UPLOAD_DIR', ROOTPATH . 'public/uploads/images/cached');
+defined('CONVERT_DIR')     || define('CONVERT_DIR', ROOTPATH . 'public/uploads/images/converted');
+defined('IMPROVE_DIR')     || define('IMPROVE_DIR', ROOTPATH . 'public/uploads/images/improved');
+defined('BACKGROUND_DIR')  || define('BACKGROUND_DIR', ROOTPATH . 'public/uploads/images/background');
+
+/*
+ | --------------------------------------------------------------------------
  | Exit Status Codes
  | --------------------------------------------------------------------------
  |
@@ -92,8 +102,3 @@ define('EVENT_PRIORITY_NORMAL', 100);
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_HIGH instead.
  */
 define('EVENT_PRIORITY_HIGH', 10);
-
-define('UPLOAD_DIR',"./uploads/images/cached");
-define('IMPROVE_DIR',"./uploads/images/improved");
-define('CONVERT_DIR',"./uploads/images/converted");
-define('BACKGROUND_DIR',"./uploads/images/background");
