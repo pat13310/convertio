@@ -32,16 +32,16 @@
 
 <section class="content-box">
     <section class="w-70 container text-center">
-        <h2>Facilité d'utilisation:</h2>
+        <h1>Facilité d'utilisation:</h1>
         <p>La plateforme se distingue par sa facilité d'utilisation. Vous n'avez qu'à
             télécharger votre fichier, choisir le format de sortie, et laisser l'outil convertir votre fichier
             rapidement et efficacement.
         </p>
-        <h2>Confidentialité garantie:</h2>
+        <h1>Confidentialité garantie:</h1>
         <p>Avec Express Convert IO, vos fichiers sont en sécurité. Ils sont supprimés des serveurs peu après la
             conversion, vous assurant que personne n'a accès à vos fichiers.
         </p>
-        <h2>Accessibilité:</h2>
+        <h1>Accessibilité:</h1>
         <p>En tant que plateforme en ligne, vous avez accès à Express Convert IO sur n'importe quel appareil, pourvu
             qu'il ait une connexion internet. Peu importe si vous êtes sur votre ordinateur de bureau, votre tablette ou
             votre smartphone, vos outils de conversion de fichiers sont toujours à portée de main.

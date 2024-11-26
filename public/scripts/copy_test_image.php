@@ -1,6 +1,6 @@
 <?php
-$source = __DIR__ . '/assets/img/logo.jfif';
-$destination = __DIR__ . '/assets/img/test.jpg';
+$source = __DIR__ . '/../assets/img/logo.jfif';
+$destination = __DIR__ . '/../assets/img/test.jpg';
 
 try {
     // Charger l'image avec Imagick

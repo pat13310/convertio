@@ -7,9 +7,9 @@ namespace App\Controllers;
 class Home extends BaseController
 {
     private const DIRECTORIES = [
-        'upload' => WRITEPATH . 'uploads',
-        'improved' => 'public/uploads/images/improved',
-        'convert' => 'public/uploads/images/convert'
+        'upload' => UPLOAD_DIR,
+        'improved' => IMPROVE_DIR,
+        'convert' => CONVERT_DIR
     ];
 
     private const CHUNK_SIZE = 1024 * 1024; // 1MB chunks
@@ -31,13 +31,25 @@ class Home extends BaseController
         helper(['form', 'url', 'me_helper']);
         $this->session = \Config\Services::session();
         
-        // Créer les dossiers nécessaires s'ils n'existent pas
-        foreach (self::DIRECTORIES as $dir) {
+        // Créer tous les répertoires nécessaires s'ils n'existent pas
+        $directories = [
+            UPLOAD_DIR,
+            CONVERT_DIR,
+            IMPROVE_DIR,
+            BACKGROUND_DIR
+        ];
+
+        foreach ($directories as $dir) {
             if (!file_exists($dir)) {
-                mkdir($dir, 0777, true);
+                if (!mkdir($dir, 0777, true)) {
+                    log_message('error', "Impossible de créer le répertoire: {$dir}");
+                } else {
+                    chmod($dir, 0777); // S'assurer que les permissions sont correctes
+                    log_message('info', "Répertoire créé avec succès: {$dir}");
+                }
             }
         }
-        
+
         // Vérifier la disponibilité du service d'image
         try {
             $image = \Config\Services::image();

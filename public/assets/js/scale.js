@@ -87,9 +87,11 @@ function addImageScale(file) {
                 <span class="new-dimensions">Calcul...</span>
             </div>
         </div>
+        <div class="progress-container">
         <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 0%" 
                  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
             <div class="progress-text">0%</div>
         </div>
     `;

@@ -38,11 +38,7 @@
                     <option value="4">4x</option>
                 </select>
             </div>
-            <div class="text-center mt-3">
-                <button type="button" class="btn btn-secondary" onclick="openImprovedFolder()">
-                    <i class='bx bx-folder-open'></i> Ouvrir le dossier des images améliorées
-                </button>
-            </div>
+            
         </div>
     </form>
 </main>

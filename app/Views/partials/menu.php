@@ -1,22 +1,17 @@
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
    <div class="container-fluid">
        <div class="logo-box"><div class="logo"></div></div>
-      <a class="navbar-brand" href="#">Express Convert IO</a>
+      <a class="navbar-brand" href="<?= base_url('/') ?>">Express Convert IO</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor02">
          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-               <a class="nav-link active" href="#">Accueil
-                  <span class="visually-hidden">(current)</span>
-               </a>
-            </li>
             <li class="nav-item" aria-label="Convertir">
-               <a class="nav-link" href="<?= base_url('/') ?>">Convertir</a>
+               <a class="nav-link <?= url_is('/') ? 'active' : '' ?>" href="<?= base_url('/') ?>">Convertir</a>
             </li>
             <li class="nav-item" aria-label="Redimensionner">
-               <a class="nav-link" href="<?= base_url('/scale') ?>">Redimensionner</a>
+               <a class="nav-link <?= url_is('/scale') ? 'active' : '' ?>" href="<?= base_url('/scale') ?>">Redimensionner</a>
             </li>
             <li class="nav-item" aria-label="Améliorer">
                <a class="nav-link" href="#">Améliorer</a>

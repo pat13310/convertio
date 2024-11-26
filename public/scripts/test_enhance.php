@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../app/Helpers/ImageEnhancer.php';
+require_once __DIR__ . '/../../app/Helpers/ImageEnhancer.php';
 
 use App\Helpers\ImageEnhancer;
 
@@ -14,8 +14,17 @@ $imagick = new Imagick();
 echo "Version ImageMagick : " . $imagick->getVersion()['versionString'] . "\n";
 
 // Chemin des images
-$sourceImage = __DIR__ . '/assets/img/test.jpg'; // Assurez-vous d'avoir une image test.jpg dans ce dossier
-$outputImage = __DIR__ . '/assets/img/test_enhanced.jpg';
+$sourceImage = __DIR__ . '/../assets/img/test.jpg'; // Image source
+$outputImage = __DIR__ . '/../uploads/images/improved/test_enhanced.jpg';
+$outputImage2 = __DIR__ . '/../uploads/images/improved/test_enhanced_custom.jpg';
+$outputImage3 = __DIR__ . '/../uploads/images/improved/test_enhanced_preset.jpg';
+
+// Assurez-vous que le dossier existe
+$outputDir = dirname($outputImage);
+if (!file_exists($outputDir)) {
+    mkdir($outputDir, 0777, true);
+    echo "Dossier créé : $outputDir\n";
+}
 
 // Test avec les paramètres par défaut
 echo "\nTest 1: Amélioration avec paramètres par défaut\n";
@@ -37,7 +46,6 @@ try {
 
 // Test avec des paramètres personnalisés
 echo "\nTest 2: Amélioration avec paramètres personnalisés\n";
-$outputImage2 = __DIR__ . '/assets/img/test_enhanced_custom.jpg';
 $options = [
     'brightness' => 105,
     'contrast' => 15,
@@ -62,7 +70,6 @@ try {
 
 // Test avec preset
 echo "\nTest 3: Amélioration avec preset\n";
-$outputImage3 = __DIR__ . '/assets/img/test_enhanced_preset.jpg';
 
 try {
     $start = microtime(true);
@@ -80,4 +87,4 @@ try {
     echo "❌ Erreur : " . $e->getMessage() . "\n";
 }
 
-echo "\nTests terminés. Vérifiez les images générées dans le dossier assets/img/\n";
+echo "\nTests terminés. Vérifiez les images générées dans le dossier uploads/images/improved/\n";
